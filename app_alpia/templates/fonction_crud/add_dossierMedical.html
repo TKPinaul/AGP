@@ -1,0 +1,218 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Patient Add</title>
+        <script src="{% static 'script.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'formulaire_style.css' %}">
+    </head>
+    <body>
+        <div id="form">
+            <h1 class="title-fiche">OUVERTURE D'UN NOUVEAU DOSSIER MEDICALE</h1>
+            <form method="post">
+                {% csrf_token %}
+                <fieldset class="principale">
+                    <fieldset class="id">
+                        <legend> INFORMATIONS PERSONNELS DU PATIENT </legend>
+                        <table>
+                            {% if messages %}
+                                <tr>
+                                    {% for message in messages %}
+                                        <td colspan="2"  class="alerte">
+                                            {{ message }}
+                                        </td>
+                                    {% endfor %}
+                                </tr>
+                            {% endif %}
+                            <tr>
+                                <td><label> Nom </label></td>
+                                <td><input type="text" name="nom_p" placeholder="Saisir le nom ici..." required></td>
+                            </tr>
+                            <tr>
+                                <td><label> Prenom </label></td>
+                                <td><input type="text" name="prenom_p" placeholder="Saisir le prenom ici..."></td>
+                            </tr>
+                            <tr>
+                                <td><label> Sexe </label></td>
+                                <td>
+                                    <input type="radio" id="sex_masculine" name="sex_p" value="M" required>
+                                    <label for="sex_masculine"> Masculin </label>
+                                    <input type="radio" id="sex_feminine" name="sex_p" value="F" required>
+                                    <label for="sex_feminine"> Féminin </label><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label> Âge </label></td>
+                                <td><input type="number" name="age" required></td>
+                            </tr>
+                            <tr>
+                                <td><label> Situation matrimoniale </label></td>
+                                <td>
+                                    <select id="marital_status" name="marital_status" required>
+                                        <option id="optio-vide" selected></option>
+                                        <option value="Celibat">Célibataire</option>
+                                        <option value="Couple">Marié(e)</option>
+                                        <option value="Widow">Veuve/Veuf</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label> Profession </label></td>
+                                <td><input type="text" name="profession" placeholder="Saisir la profession ici..."></td>
+                            </tr>
+                            <tr>
+                                <td><label> Numero de telephone </label></td>
+                                <td><input type="tel" name="num_tel" required></td>
+                            </tr>
+                            <tr>
+                                <td><label> Email </label></td>
+                                <td><input type="email" name="mail" placeholder="Saisir le mail ici..." ></td>
+                            </tr>
+                            <tr>
+                                <td><label> Religion </label></td>
+                                <td><input type="text" name="religion" placeholder="Saisir la religion ici..." ></td>
+                            </tr>
+                            <tr>
+                                <td><label> Ethnie </label></td>
+                                <td><input type="text" name="ethnie" placeholder="Saisir l'origine ethnique ici..." ></td>
+                            </tr>
+                            <tr>
+                                <td><label> Lieu de résidence </label></td>
+                                <td><input type="text" name="residence" placeholder="Adrsse/domicile du patient" required></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <fieldset class="id">
+                        <legend class="deux"> INFORMAIONS MEDICALES DU PATIENT</legend>
+                        <fieldset>
+                            <legend>ANTÉCÉDENTS</legend>
+                            <fieldset>
+                                <legend><em> Informations médical </em></legend>
+                                <table>
+                                    <tr>
+                                        <td><label> Antécédents médicaux </label></td>
+                                        <td>
+                                            <Textarea name="medical_history" 
+                                            placeholder="Listez les antécédents médicaux ici..." 
+                                            rows=5 cols=50></Textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label> Antécédents chirurgicaux </label></td>
+                                        <td>
+                                            <Textarea name="surgical_history" 
+                                            placeholder="Listez les antécédents chirurgicaux ici..." 
+                                            rows=5 cols=50></Textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label> Antécédents obstétricaux </label></td>
+                                        <td>
+                                            <Textarea name="obstetrical_history" 
+                                            placeholder="Listez les antécédents obstétricaux ici..." 
+                                            rows=5 cols=50></Textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label> Habitudes alimentaires </label></td>
+                                        <td>
+                                            <Textarea name="hab_aliment" 
+                                            placeholder="Saisissez les habitudes alimentaires ici..." 
+                                            rows=5 cols=50></Textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label> Allergies </label></td>
+                                        <td>
+                                            <Textarea name="allergie" 
+                                            placeholder="Listez les allergie ici..."
+                                            rows=5 cols=50></Textarea>
+                                        </td>
+                                    </tr>                                                           
+                                </table>
+                            </fieldset>
+                            <fieldset>
+                                <legend><em> Historique familial </em></legend>
+                                <table>
+                                    <tr>
+                                        <td><label> Antécédents familiaux </label></td>
+                                        <td>
+                                            <Textarea name="family_history" 
+                                            placeholder="Saisissez l'historique familial ici..."
+                                            rows=5 cols=50></Textarea>
+                                        </td>
+                                    </tr>                       
+                                </table>    
+                            </fieldset>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>TRAITEMENT ACTUEL</legend>   
+                            <table>
+                                <tr>
+                                    <td><label> Date de consultation </label></td>
+                                    <td><input type="date" name="date_consul" required></td>
+                                </tr>
+                                <tr>
+                                    <td><label> Symptômes actuels </label></td>
+                                    <td>
+                                        <Textarea name="plainte" 
+                                        placeholder="Saisissez les motif de consultation ici..." 
+                                        rows=5 cols=50
+                                        style="resize: vertical; padding: 10px;"
+                                        required></Textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label> Analyse Prescrit </label></td>
+                                    <td>
+                                        <Textarea name="analyse" 
+                                        placeholder="Saisissez les différentes analyse ici..." 
+                                        rows=5 cols=50
+                                        style="resize: vertical; padding: 10px;"></Textarea>
+                                    </td>
+                                </tr>                       
+                                <tr>
+                                    <td><label> Traitement en cours </label></td>
+                                    <td>
+                                        <Textarea name="current_treatment" 
+                                        placeholder="Présenter un bref résumé du tratement en cour ici..."
+                                        rows=5 cols=50
+                                        style="resize: vertical; padding: 10px;"></Textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label> Prendre rendez-vous sur </label></td>
+                                    <td><input type="date" name="date_appoint"></td>
+                                </tr>                      
+                            </table>    
+                        </fieldset>
+                        <table>
+                            <tr>
+                                <td><label> Docteur en charge du patient </label></td>
+                                <td>
+                                    <select id="doctor_charge" name="doctor_charge" required>
+                                        <option selected></option>
+                                        {% for user in users %}
+                                            <option value="{{ user.id_user }}">{{ user.surname }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                            </tr>                       
+                        </table>
+                    </fieldset>
+                    <div class="btn_add_form">
+                        <button type="submit" class="btn-submit">Enregistrer</button>
+                        
+                        <button type="submit" id="bouton-retour" class="btn-cancel">
+                            Cancel
+                        </button>
+                    </div>                    
+                    
+                </fieldset>
+            </form>
+        </div>
+    </body>
+</html>

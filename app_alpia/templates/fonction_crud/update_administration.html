@@ -1,0 +1,54 @@
+{% extends 'navbar.html' %}
+
+{% block title %} staff update {% endblock title %}
+
+{% block content %}
+    {% comment %} <h1>Welcome, {{ users.name }}!</h1> {% endcomment %}
+    <div id="upd_perso">
+        <form method="post">
+            {% csrf_token %}
+            <div class="update_formulaire">
+                <div class="form_group_upd">
+                    <label for="id">Id</label>
+                    <input type="text" name="id" value="{{ users.id_user }}" readonly>
+                </div>
+                <div class="form_group_upd">
+                    <label for="surname">NOM</label>
+                    <input type="text" name="nom" value="{{ users.surname }}">
+                </div>
+                <div class="form_group_upd">
+                    <label for="first_name">PRENOM</label>
+                    <input type="text" name="prenom" value="{{ users.first_name }}">
+                </div>
+                <div class="form_group_upd">
+                    <label for="title">TITRE</label>
+                    <select name="titre" required>
+                        <option value="" selected></option>
+                        <option value="Doctor" {% if users.title == 'Doctor' %} selected {% endif %}>Docteur</option>
+                        <option value="Administrator" {% if users.title == 'Administrator' %} selected {% endif %}>Administrateur</option>
+                    </select>
+                    {% comment %} <input type="text" name="titre" value="{{ users.title }}"> {% endcomment %}
+                </div>
+                <div class="form_group_upd">
+                    <label for="tel_number">NUMERO DE TELEPHONE</label>
+                    <input type="number" name="numero" value="{{ users.tel_number }}">
+                </div>
+                <div class="form_group_upd">
+                    <label for="email">EMAIL</label>
+                    <input type="email" name="mail" value="{{ users.email }}">
+                </div>
+                <div class="form_group_upd">
+                    <label for="password">MOTS DE PASSE</label>
+                    <input type="password" name="mot_passe" value="{{ users.password }}">
+                </div>
+                <div class="btn_upd_form">
+                    <button type="submit" class="btn-upd">Update</button>
+                    <button type="submit" class="btn-cancel"><a href="{% url 'administrate' %}">
+                        Cancel
+                    </a></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+{% endblock %}

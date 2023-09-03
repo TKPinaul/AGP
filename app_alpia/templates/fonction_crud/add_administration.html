@@ -1,0 +1,51 @@
+{% extends 'navbar.html' %}
+
+{% block title %} adding staff {% endblock title %}
+
+{% block content %}
+    <div id="add_perso">
+        <div class="add_forms">
+            <form method="post">
+                {% csrf_token %}
+                <div class="add_formulaire">
+                    <div class="form_group_add">
+                        <label for="surname"> Nom </label>
+                        <input type="text" name="nom" value="{{ users.surname }}">
+                    </div>
+                    <div class="form_group_add">
+                        <label for="first_name"> Prénom </label>
+                        <input type="text" name="prenom" value="{{ users.first_name }}">
+                    </div>
+                    <div class="form_group_add">
+                        <label for="title"> Titre </label>
+                        <select name="titre" required>
+                            <option value="" selected></option>
+                            <option value="Doctor">Docteur</option>
+                            <option value="Administrator">Administrateur</option>
+                        </select>
+                    </div>
+                    <div class="form_group_add">
+                        <label for="tel_number">Numéro de téléphone</label>
+                        <input type="number" name="numero" value="{{ users.tel_number }}">
+                    </div>
+                    <div class="form_group_add">
+                        <label for="email">Email</label>
+                        <input type="email" name="mail" value="{{ users.email }}">
+                    </div>
+                    <div class="form_group_add">
+                        <label for="password">Mots de passe</label>
+                        <input type="password" name="mot_passe" value="{{ users.password }}">
+                    </div>
+                    <div class="btn_add_form">
+                        <button type="submit" class="btn-save">Enregistré</button>
+                        <button type="submit" class="btn-cancel">
+                            <a href="{% url 'administrate' %}">
+                                Cancel
+                            </a>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

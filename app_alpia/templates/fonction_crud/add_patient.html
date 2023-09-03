@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire avec Pagination</title>
+    {% comment %} <script src="{% static 'formScript.js' %}"></script> {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'sty.css' %}">
+    <script src="{% static 'formScript.js' %}"></script>
+</head>
+<body>
+    <div id="form">
+        <div class="form-section">
+            <h2>Informations Personnelles</h2>
+
+            <div class="form-group">
+                <label for="nom_p">Nom :</label>
+                <input type="text" id="nom_p" required>
+            </div>
+            <div class="form-group">
+                <label for="prenom_p">Prénom :</label>
+                <input type="text" id="prenom_p" required>
+            </div>
+            <div class="form-group">
+                <label for="sex_p">Sexe :</label>
+                <input type="radio" id="sex_masculine" name="sex_p" value="M" required>
+                <label for="sex_masculine"> Masculin </label>
+                <input type="radio" id="sex_feminine" name="sex_p" value="F" required>
+                <label for="sex_feminine"> Féminin </label>
+            </div>
+            <div class="form-group">
+                <label for="age">Âge :</label>
+                <input type="number" name="age" required>
+            <div class="form-group">                
+                <label> Situation matrimoniale </label>
+                <select id="marital_status" name="marital_status" required>
+                    <option value="Celibat">Célibataire</option>
+                    <option value="Couple">Marié(e)</option>
+                    <option value="Widow">Veuve/Veuf</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label> Profession </label>
+                <input type="text" name="profession" placeholder="Saisir la profession ici...">
+            </div>
+            <div class="form-group">
+                <label> Numero de telephone </label>
+                <input type="tel" name="num_tel" required>
+            </div>
+            <div class="form-group">
+                <label> Email </label>
+                <input type="email" name="mail" placeholder="Saisir le mail ici..." >
+            </div>
+            <div class="form-group">
+                <label> Habitudes alimentaires </label>
+                <Textarea name="hab_aliment" 
+                    placeholder="Saisissez les habitudes alimentaires ici..." 
+                    rows=5 cols=50></Textarea>
+            </div>
+            <div class="form-group">
+                <label> Religion </label>
+                <input type="text" name="religion" placeholder="Saisir la religion ici..." >
+            </div>
+            <div class="form-group">
+                <label> Ethnie </label>
+                <input type="text" name="ethnie" placeholder="Saisir l'origine ethnique ici..." >
+            </div>
+            <div class="form-group">
+                <label> Lieu de résidence </label>
+                <input type="text" name="residence" placeholder="Adrsse/domicile du patient" required>
+            </div>
+
+            <button type="submit" id="bouton-retour" class="btn-cancel">
+                Cancel
+            </button>
+            <button class="btn-next">Suivant</button>
+        </div>
+
+        <div class="form-section">
+            <h2>Antécédents</h2>
+            <div class="form-group">
+                <label for="medical_history">Antécédents Médicaux :</label>
+                <textarea id="medical_history" rows="5" cols="50" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="surgical_history">Antécédents Chirurgicaux :</label>
+                <textarea id="surgical_history" rows="5" cols="50" required></textarea>
+            </div>
+            <div class="form-group">            
+                <label for="obstetrical_history">Antécédents obstétricaux :</label>
+                <textarea id="obstetrical_history" rows="5" cols="50" required></textarea>
+            </div>
+            <div class="form-group">            
+                <label for="allergie">Allergies :</label>
+                <textarea id="allergie" rows="5" cols="50" required></textarea>
+            </div>
+            <div class="form-group">            
+                <label for="family_history">Antécédents familiaux :</label>
+                <textarea id="family_history" rows="5" cols="50" required></textarea>
+            </div>
+
+            <button class="btn-prev">Précédent</button>
+            <button class="btn-next">Suivant</button>
+        </div>
+
+        <div class="form-section">
+            <h2>Section 3 : Traitement Actuel</h2>
+            <div class="form-group">
+                <label for="date_consul">Date de Consultation :</label>
+                <input type="date" id="date_consul" required>
+            </div>
+            <div class="form-group">
+                <label for="plainte">Symptômes Actuels :</label>
+                <textarea id="plainte" rows="5" cols="50" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="analyse">Analyse Prescrit :</label>
+                <textarea id="analyse" rows="5" cols="50"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="current_treatment">Traitement en cours :</label>
+                <textarea id="current_treatment" rows="5" cols="50"></textarea>
+            </div>
+            <div class="form-group">
+                <label> Prendre rendez-vous sur </label>
+                <input type="date" name="date_appoint">
+            </div>
+            <div class="form-group">
+                <label> Docteur en charge du patient </label>
+                <select name="doctor_charge" required>
+                    {% for user in users %}
+                        <option value="{{ user.id_user }}">{{ user.surname }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button class="btn-prev">Précédent</button>
+            <button type="submit" id="bouton-retour" class="btn-cancel">
+                Cancel
+            </button>
+            <button type="submit">Enregistrer</button>
+        </div>
+    </div>
+    
+</body>
+</html>

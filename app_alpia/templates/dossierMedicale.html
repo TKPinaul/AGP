@@ -1,0 +1,124 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folder Medical</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'styty.css' %}">
+    <script src="{% static 'script.js' %}"></script>
+</head>
+<body id="fold_med">
+    
+    <div class="info_patient">
+        <div class="info_row">
+            <label class="info_label">Nom:</label>
+            <input name="nom_p" type="text" class="info_input" value="{{pat.surname_p}}" disabled>
+        </div>
+        <div class="info_row">
+            <label class="info_label">Prénom:</label>
+            <input name="prenom_p" type="text" class="info_input" value="{{pat.first_name_p}}" disabled>
+        </div>
+        <div class="info_row">
+            <label class="info_label">Age:</label>
+            <input name="age" type="text" class="info_input" value="{{pat.age_p}}" disabled>
+        </div>
+        <div class="info_row">
+            <label class="info_label">Profession:</label>
+            <input name="profession" type="text" class="info_input" value="{{pat.profession}}" disabled>
+        </div>
+        <div class="info_row">
+            <label class="info_label">Situation matrimoniale:</label>
+            <select id="marital_status" name="marital_status" class="info_select" disabled>
+                <option value="Celibat" {% if pat.marital_status == 'Celibat' %} selected {% endif %}>Célibataire</option>
+                <option value="Couple" {% if pat.marital_status == 'Couple' %} selected {% endif %}>Marié(e)</option>
+                <option value="Veuve/Veuf" {% if pat.marital_status == 'Veuve/Veuf' %} selected {% endif %}>Veuve/Veuf</option>
+            </select>
+        </div>
+    </div>
+
+    <h1 class="title_welcom">Dossier médicale du patient: {{pat.surname_p}} {{pat.first_name_p}}</h1>
+    
+    <div class="fiche_containt">
+        <h3 class="label_fiche">Fiche médicale</h3>
+
+        <div class="symptom_container">
+            {% for treatment in page_obj %}
+                <div class="fiche_medical">
+                    <Textarea name="plainte" class="terra" readonly>Symptôme: {{ treatment.actu_complaints }}</Textarea>
+                    {% for user in users %}
+                        <h3>{% if user.id_user == treatment.id_user_id.id_user %}
+                                Docteur en charge: {{ user.surname }} 
+                        {% endif %}</h3>
+                    {% endfor %}
+                    <div class="but_dat">
+                        <h3 class="h_distinct">Date de consultation: {{ treatment.date_consultation|date:'d/m/Y' }}</h3>
+                        
+                        {% if date_appointment != "" %}
+                            <h3 class="h_distinct2">Date de rendez-vous: {{ treatment.date_appointment|date:'d/m/Y' }}</h3>
+                        {% endif %}
+                        <a href="{% url 'fiche-consultation' pat.id_patient treatment.id_traitement %}">
+                            <button class="click_me"> Consulter </button>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+            
+                       
+            <div class="fiche_medical">
+                <a href="{% url 'fiche-medical' pat.id_patient %}">
+                    <div class="icon_container">
+                        <ion-icon name="add-circle-outline"></ion-icon>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="navigation">
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; Première</a>
+                <a href="?page={{ page_obj.previous_page_number }}">Précédent</a>
+                {% endif %}
+                
+                <span class="current-page">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">Suivant</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">Dernière &raquo;</a>
+                {% endif %}
+            </span>
+        </div>        
+    </div>
+
+    <div class="nav-inf-containt-bouton">
+        <div class="A-patient">
+            <button class="bouton-A-patient">
+                <a href="{% url 'fiche-antecedent' pat.id_patient med_story.id_MH %}">
+                    Afficher les antecedent
+                </a>
+            </button>
+        </div>
+        <div class="F-patient">
+            <button class="bouton-F-patient">
+                <a href="{% url 'read-patient' pat.id_patient %}">
+                    Afficher le patient
+                </a>
+            </button>
+        </div>
+        <div class="retour">
+            <button id="bouton-retour" class="return_arriere">Retour</button>
+        </div>
+    </div>
+
+    <script  type ="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"> </script> 
+    <script  nomodule  src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"> </script>
+</body>
+</html>

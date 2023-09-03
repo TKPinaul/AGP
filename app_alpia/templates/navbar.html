@@ -1,0 +1,68 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %} Home {% endblock title %}</title>
+
+        <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+        <script>
+            var LOGOUT_URL = "{% url 'acceuil_init' %}";
+            var HOME_URL = "{% url 'login' %}";
+        </script>
+        <script src="{% static 'script.js' %}"></script>
+    </head>
+    <header class="head_main">
+        <nav>
+            {% comment %} {% if v_user %}
+                <h4 class="logo">Utilisateur actuelle: 
+                    <h1 id="logo"> {{ v_user }}</h1>
+                </h4>
+            {% else %}
+                <h1 id="logo">Logo</h1>
+            {% endif %} {% endcomment %}
+
+            <div class="mobile-menu" id="mobile-menu">
+                <ion-icon name="menu" class="menu-icon" aria-label="Menu"></ion-icon>
+            </div>
+
+            <ul class="menu" id="menu">
+                <li class="nav-items" id="first_lien">
+                    <a href="{% url 'acceuil_init' %}">
+                        <ion-icon name="home" class="nav-ico"></ion-icon> Accueil
+                    </a>
+                </li>
+                <li class="nav-items">
+                    <a href="{% url 'patient' %}">
+                        <ion-icon name="albums" class="nav-ico"></ion-icon> Gestion des Dossiers
+                    </a>
+                </li>
+                <li class="nav-items">
+                    <a href="{% url 'patient-liste' %}">
+                        <ion-icon name="file-tray-stacked" class="nav-ico"></ion-icon> Gestion des Patients
+                    </a>
+                </li>
+                
+                {% if v_user and role == "Administrator" %}
+                    <li class="nav-items">
+                        <a href="{% url 'administrate' %}">
+                            <ion-icon name="people" class="nav-ico"></ion-icon> Gestion du personnel
+                        </a>
+                    </li>
+                {% endif %}
+                    
+                {% comment %} <li><a href="{% url 'about' %}">About</a></li> {% endcomment %}
+            </ul>
+        </nav>
+    </header>
+    <body>
+        
+        {% block content %} {% endblock content %}
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script  type ="module"  src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"> </script> 
+        <script  nomodule  src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"> </script>
+    </body>
+</html>

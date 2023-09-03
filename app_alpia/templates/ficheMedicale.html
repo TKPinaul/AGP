@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire Patient</title>
+
+    <script src="{% static 'script.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'form.css' %}" charset="utf-8">
+</head>
+<body>
+    <form method="post" id="id_forme">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Enregistrer</button>
+    </form>
+</body>
+</html>
+{% comment %} <fieldset class="principale">
+
+    <div>
+        <!-- Date de consultation -->
+        <label for="{{ form.date_consul.id_for_label }}">Date de consultation :</label>
+        {{ form.date_consul }}
+    </div>
+
+    <fieldset class="sous-class">
+
+        <fieldset class="traitement">
+            <legend> Informations du dossier médical </legend>
+            <!-- Symptômes actuels -->
+            <div>
+                <label for="{{ form.plainte.id_for_label }}">Symptômes actuels :</label>
+                {{ form.plainte }}
+            </div>
+            <!-- Analyse médicale -->
+            <div>
+                <label for="{{ form.analyse.id_for_label }}">Analyse médicale :</label>
+                {{ form.analyse }}
+            </div>
+
+            <!-- Traitement actuel -->
+            <div>
+                <label for="{{ form.current_treatment.id_for_label }}">Traitement actuel :</label>
+                {{ form.current_treatment }}
+            </div>
+        </fieldset>
+
+        <!-- Date de rendez-vous -->
+        <div>
+            <label for="{{ form.date_appoint.id_for_label }}">Prendre rendez-vous sur :</label>
+            {{ form.date_appoint }}
+        </div>
+
+        <!-- Case à cocher pour afficher le diagnostic -->
+        <input type="checkbox" id="showDiagnosticsCheckbox" name="show_diagnostics">
+        <label for="showDiagnosticsCheckbox">Afficher le diagnostic</label>
+
+        <!-- Champ de diagnostic (masqué par défaut) -->
+        <div id="diagnosticsField" style="display: none;">
+            {{ form.diagnostics }}
+        </div>
+
+        <!-- Docteur en charge du patient -->
+        <div>
+            <label for="{{ form.doctor_charge.id_for_label }}">Docteur en charge du patient :</label>
+            <select name="{{ form.doctor_charge.name }}" id="{{ form.doctor_charge.id_for_label }}" required>
+                {% for user in users %}
+                    <option value="{{ user.id }}">
+                        {{ user }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+    </fieldset>
+    <!-- Bouton Soumettre -->
+    <div>
+        <input type="submit" value="Soumettre">
+    </div>
+</fieldset> {% endcomment %}

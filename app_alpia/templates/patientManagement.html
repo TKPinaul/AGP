@@ -1,0 +1,96 @@
+{% extends 'navbar.html' %}
+{% load static %}
+
+{% block title %} Folder management {% endblock title %}
+
+{% block content %}
+
+<div id="patient_body">
+    <table border="1" class="tb_gestion" align="center">
+        <tr align="center">
+            <td colspan="8" class="title_patient_tab">
+                GESTION DES DOSSIERS MEDICAUX DE LA CLINIQUE "ALPIA"
+            </td>
+        </tr>
+        <tr align="center" class="titre_colone">
+            <td>Nom</td>
+            <td>Prénom</td>
+            <td>Sexe</td>
+            <td>Téléphone</td>
+            <td>Address</td>
+            <td></td>
+        </tr>
+
+        {% for i_patient in patients %}
+            <tr align="center" id="dossier-patient">
+                <td>{{i_patient.surname_p}}</td>
+                <td>{{i_patient.first_name_p}}</td>
+                <td>{{i_patient.sex_p}}</td>
+                <td>{{i_patient.numero_p}}</td>
+                <td>{{i_patient.residence}}</td>
+                {% comment %} <td>{{i_patient.id_user_id.surname}}</td> {% endcomment %}
+                {% comment %} <td>{{i_patient.date_consultation|date:"d/m/Y"}}</td> {% endcomment %}
+                <td colspan="2" class="btn_containt">
+
+                    <button type="submit" class="btn_visio" title="Ouvrir">
+                        <a href="{% url 'patient-folder' i_patient.id_patient %}">
+                            <ion-icon name="folder-open-sharp" class="eye"></ion-icon>
+                            {% comment %} <ion-icon name="eye" class="eye"></ion-icon> {% endcomment %}
+                        </a>
+                    </button>
+                    {% comment %} <button type="submit" class="btn_update" title="Modifier">
+                        <a href="{% url 'patient-update' i_patient.id_patient %}">
+                            <ion-icon name="reload-circle" class="edit"></ion-icon>
+                            <ion-icon name="create-outline" class="edit"></ion-icon>
+                        </a>
+                    </button> {% endcomment %}
+
+                </td>
+            </tr>
+        {% endfor %}
+        
+        <tr align="center">
+            <td></td><td></td><td></td><td></td><td></td>
+            <td colspan="2" class="btn_containt">
+
+                <button type="submit" class="btn_add" title="Ajouter un nouveau patient">
+                    <a href="{% url 'patient-add' %}">
+                        <ion-icon name="add-outline" class="user_add"></ion-icon>
+                    </a>
+                </button>
+                
+            </td>
+        </tr>
+    </table>
+    
+    <div class="pagination">
+        <span class="step-links">
+            {% if patients.has_previous %}
+                <a href="?page=1">&laquo; Première</a>
+                <a href="?page={{ patients.previous_page_number }}">Précédent</a>
+            {% endif %}
+
+            <span class="current-page">
+                Page {{ patients.number }} of {{ patients.paginator.num_pages }}.
+            </span>
+
+            {% if patients.has_next %}
+                <a href="?page={{ patients.next_page_number }}">Suivant</a>
+                <a href="?page={{ patients.paginator.num_pages }}">Dernière &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <div class="search-bar">
+        <select id="search-type2" title="Type de recherche pour la liste des dossiers médicaux">
+            <option value="surname" selected>Type de recherche</option>
+            <option value="surname">Nom</option>
+            <option value="first-name">Prénom</option>
+            <option value="sex">Sexe</option>
+        </select>
+        <input type="text" placeholder="Rechercher..." class="search-input" id="search-input">
+        <button class="search-button" id="search" title="Lancer la recherche"><ion-icon name="search" class="btn-search"></ion-icon></button>
+    </div>
+    
+</div>
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supprimer patient</title>    
+    <link rel="stylesheet" type="text/css" href="{% static 'del_style.css' %}">
+</head>
+<body id="fold_med">
+    <h1>
+        <ion-icon name="warning" class="warning"></ion-icon>Attention cette action est irrévercible !!
+    </h1>
+
+    <p>Êtes vous sûr de vouloir supprimer le compte de : {{ users.surname }} {{ users.first_name }} ?</p>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Supprimer">
+        <button type="submit" class="btn-cancel"><a href="{% url 'administrate' %}">
+            Cancel
+        </a></button>
+    </form>
+    <script  type ="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"> </script> 
+    <script  nomodule  src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"> </script>
+</body>
+</html>
+

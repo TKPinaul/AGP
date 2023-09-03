@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fiche des antécédents</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'vue.css' %}">
+    <script src="{% static 'script.js' %}"></script>
+</head>
+<body id="fiche-ant">
+    <div id="contain_ant">
+        <h1 class="title"> <u> Antécédent médical du patient</u>: {{ patients.surname_p }} {{ patients.first_name_p }}</h1>
+        
+        <div class="treatment-info">
+            <p class="treatment-description">Antécédents médicaux
+                <textarea class="ant-field" readonly>
+                    {{ medicalHistorys.medical }}
+                </textarea>
+            </p>
+            <p class="treatment-analyse">Antécédents chirurgicaux
+                <textarea class="ant-field" readonly>
+                    {{ medicalHistorys.surgical }}
+                </textarea>
+            </p>
+            <p class="treatment-description">Antécédents obstétricaux
+                <textarea class="ant-field" readonly>
+                    {{ medicalHistorys.obstetrical }}
+                </textarea>
+            </p>
+            <p class="treatment-analyse">Habitudes alimentaires
+                <textarea class="ant-field" readonly>
+                    {{ medicalHistorys.eating_habits }}
+                </textarea>
+            </p>
+            <p class="treatment-analyse">Allergies
+                <textarea class="ant-field" readonly>
+                    {{ medicalHistorys.allergies }}
+                </textarea>
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="fonction">
+            <button id="bouton-retour" class="btn-cancel-pf">Retour</button>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+</body>
+</html>

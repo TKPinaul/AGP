@@ -1,0 +1,88 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Update patient</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'formulaire_style.css' %}">
+        <script src="{% static 'script.js' %}"></script>
+    </head>
+    <body>
+        <div id="form">
+            <form method="post">
+                {% csrf_token %}
+                <fieldset class="principale">
+                    <fieldset class="id">
+                        <legend> Informations Personnels du Patient </legend>
+                        <table>
+                            <tr>
+                                <td><label> Nom </label></td>
+                                <td><input type="text" name="nom_p" value="{{ patients.surname_p }}" required></td>
+                            </tr>
+                            <tr>
+                                <td><label> Prenom </label></td>
+                                <td><input type="text" name="prenom_p" value="{{ patients.first_name_p }}" required></td>
+                            </tr>
+                            <tr>
+                                <td><label> Sexe </label></td>
+                                <td>
+                                    <input type="radio" id="sex_masculine" name="sex_p" value="M" {% if patients.sex_p == 'M' %} checked {% endif %} required>
+                                    <label for="sex_masculine"> Masculin </label>
+                                    <input type="radio" id="sex_feminine" name="sex_p" value="F" {% if  patients.sex_p == 'F' %} checked {% endif %} required>
+                                    <label for="sex_feminine"> Féminin </label><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label> Age </label></td>
+                                <td><input type="number" name="age" value="{{ patients.age_p }}" required></td>
+                            </tr>
+                            <tr>
+                                <td><label> Situation matrimoniale </label></td>
+                                <td>
+                                    <select id="marital_status" name="marital_status" required>
+                                        <option value="Celibat" {% if patients.marital_status == 'Celibat' %} selected {% endif %}>Célibataire</option>
+                                        <option value="Couple" {% if patients.marital_status == 'Couple' %} selected {% endif %}>Marié(e)</option>
+                                        <option value="Veuve/Veuf" {% if patients.marital_status == 'Veuve/Veuf' %} selected {% endif %}>Veuve/Veuf</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label> Profession </label></td>
+                                <td><input type="text" name="profession" value="{{ patients.profession }}" ></td>
+                            </tr>
+                            <tr>
+                                <td><label> Numero de telephone </label></td>
+                                <td><input type="tel" name="num_tel" value="{{ patients.numero_p }}" required></td>
+                            </tr>
+                            <tr>
+                                <td><label> Email </label></td>
+                                <td><input type="email" name="mail" value="{{ patients.email_p }}" ></td>
+                            </tr>
+                            <tr>
+                                <td><label> Religion </label></td>
+                                <td><input type="text" name="religion" value="{{ patients.religion }}" ></td>
+                            </tr>
+                            <tr>
+                                <td><label> Ethnie </label></td>
+                                <td><input type="text" name="ethnie" value="{{ patients.ethnic }}"></td>
+                            </tr>
+                            <tr>
+                                <td><label> Lieu de résidence </label></td>
+                                <td><input type="text" name="residence" value="{{ patients.residence }}" required></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+
+                    <div class="btn_add_form">
+                        <button type="submit" class="btn-submit">Enregistrer</button>
+                        
+                        <button id="bouton-retour" type="submit" class="btn-cancel">Cancel</button>
+                    </div>
+                    
+                </fieldset>
+            </form>
+        </div>
+    </body>
+</html>

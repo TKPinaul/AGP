@@ -1,0 +1,45 @@
+{% extends 'navbar.html' %}
+{% load static %}
+
+{% block content %}
+
+    {% if premiere_connexion %}
+    <div class="welcome-message">
+        <h2>Bienvenue, {{ name }} !</h2>
+    </div>
+    {% endif %}
+
+    <div id="home_body_butn">
+        {% if success_message %}
+            <p class="success-message">
+                <ion-icon name="checkmark-circle" class="success"></ion-icon>
+                {{ success_message }}
+            </p>
+        {% endif %}
+        <div id="error-message" style="display: none;"></div>
+        <div class="home_contain">
+            <div class="button_home">
+                <a href="{% url 'patient' %}">
+                    <button class="custom-button">Consulter les Dossiers médical des patients</button>
+                </a>
+            </div>
+            <div class="button_home">
+                <a href="{% url 'patient-add' %}">
+                    <button class="custom-button">Ouvrir un nouveau dossier</button>
+                </a>
+            </div>
+            <div class="button_home">
+                <a href="{% url 'patient-liste' %}">
+                    <button class="custom-button">Afficher la liste des patients</button>
+                </a>
+            </div>
+            <div class="button_home">
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="custom-button" id="deconect-btn">Déconnexion</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+{% endblock content %}

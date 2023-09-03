@@ -1,0 +1,91 @@
+{% extends 'navbar.html' %}
+{% load static %}
+
+{% block title %} Staff management {% endblock title %}
+
+{% block content %}
+
+<div id="admin_body">
+    <table class="tb_gestion" align="center">
+        <tr align="center">
+            <td colspan="10" class="title_admin_tab">
+                <h5>GESTION DU PERSONNEL DE LA CLINIQUE "ALPIA"</h5>
+            </td>
+        </tr>
+        <tr align="center" class="titre_colone">
+            <td>Id</td>
+            <td>NOM</td>
+            <td>PRENOM</td>
+            <td>TITRE</td>
+            <td>TEL</td>
+            <td>EMAIL</td>
+            <td>MOTS DE PASSE</td>
+            <td colspan="2"></td>
+        </tr>
+        {% for i_user in users %}
+            <tr align="center" class="{% if forloop.counter|divisibleby:2 %}ligne-paire{% else %}ligne-impaire{% endif %}">
+                <td>{{i_user.id_user}}</td>
+                <td>{{i_user.surname}}</td>
+                <td>{{i_user.first_name}}</td>
+                <td>{{i_user.title}}</td>
+                <td>{{i_user.tel_number}}</td>
+                <td>{{i_user.email}}</td>
+                <td>{{i_user.password}}</td>
+                <td colspan="3" class="btn_containt">
+
+                    <button type="submit" class="btn_update" title="Modifier" >
+                        <a href="{% url 'administrate-update' i_user.id_user %}">
+                            <ion-icon name="create" class="edit"></ion-icon>
+                        </a>
+                    </button>
+                    <button type="submit" class="btn_mail" data-admin="{{ v_user }}" data-email="{{ i_user.email }}" data-nom="{{ i_user.surname }}" data-motdepasse="{{ i_user.password }}" title="Envoyer un e-mail">
+                        <ion-icon name="mail" class="mail"></ion-icon>
+                    </button>
+                    <button type="submit" class="btn_delate" title="Supprimer">
+                        <a href="{% url 'administrate-delate' i_user.id_user %}">
+                            <ion-icon name="trash-outline" class="corbeil"></ion-icon>
+                        </a>
+                    </button>
+                    
+                </td>
+            </tr>
+        {% endfor %}
+        <tr align="center">
+            <td colspan="7"></td>
+            <td colspan="3" class="btn_containt">
+                <button type="submit" class="btn_add" title="Ajouter un utulisateur">
+                    <a href="{% url 'administrate-add' %}">
+                        <ion-icon name="person-add-outline" class="user_add"></ion-icon>
+                    </a>
+                </button>
+            </td>
+        </tr>
+    </table>
+
+    <table class="tb_gestion" align="center">
+        <tr align="center">
+            <td colspan="12" class="title_admin_tab">
+                <h5>GESTION DU TEMPS D'UTILISATION</h5>
+            </td>
+        </tr>
+        <tr align="center" class="titre_colone">
+            <td>Id</td>
+            <td>Nom</td>
+            <td>1<sup>ière</sup> CONNEXION</td>
+            <td>Dernière déconnexion</td>
+            <td>Nombre De Connexion éffectué</td>
+            <td>Temps d'utilisation</td>
+        </tr>
+        {% for i_user in users %}
+            <tr align="center" class="{% if forloop.counter|divisibleby:2 %}ligne-paire{% else %}ligne-impaire{% endif %}">
+                <td>{{i_user.id_user}}</td>
+                <td>{{i_user.surname}}</td>
+                <td>{{i_user.last_login_time|date:"d M Y H:i:s"}}</td>
+                <td>{{i_user.last_logout_time|date:"d M Y H:i:s"}}</td>
+                <td>{{i_user.connection_count}}</td>
+                <td>{{ i_user.time_spent }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock content %}

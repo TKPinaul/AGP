@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <title>Login</title>
+    <script src="{% static 'script.js' %}"></script>
+</head>
+<body id="logining">
+    <div class="loginzone">
+        <div class="form_login_box">
+            <h2>CONECTEZ-VOUS</h2>
+            <form method="post">
+                {% csrf_token %}
+                {% if error_message %}
+                    <p class="error-message">
+                        <ion-icon name="warning" class="warning"></ion-icon>
+                        {{ error_message }}
+                    </p>
+                {% endif %}
+                <div class="input-box">
+                    <span class="icon"> <ion-icon name="person-circle"></ion-icon> </span>
+                    <input type="user" name="utilisateur" required>
+                    <label>Utilisateur</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon" id="password-icon">
+                        <ion-icon name="lock-closed"></ion-icon> 
+                    </span>
+                    <input type="password" name="mot_pass" id="password-input" required>
+                    <label>Mot de passe</label>
+                </div>
+                <button type="submit" class="btn_log">Connexion</button>
+            </form>                
+        </div>
+    </div>
+    <script  type = "module"  src = "https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"> </script> 
+    <script  nomodule  src = "https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"> </script>
+</body>
+</html>
